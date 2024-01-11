@@ -1,6 +1,6 @@
 import streamlit as st
 import re
-#import nltk
+import nltk
 import pandas as pd
 #from nltk.corpusimport stopwords
 #from nltk.stem.porter import PorterStemmer
