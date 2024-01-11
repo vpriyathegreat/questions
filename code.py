@@ -1,7 +1,8 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import re
-#import nltk
+import nltk
+nltk.download("stopwords")
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
