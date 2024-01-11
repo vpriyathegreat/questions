@@ -75,8 +75,8 @@ if selected == "Prediction":
         st.write("Tags:", tags_input)
        # st.write("Naive Bayes Predicted OpenStatus:", predictedvaive)
         #print("Naive Bayes Predicted OpenStatus:", "Open" if predicted_nb == 1 else "Closed")
-        print("MLP Classifier Predicted OpenStatus:", "Open" if predicted_mlp == 1 else "Closed")
-        st.write(" Predicted OpenStatus:", predictedmlp)
+        st.write("MLP Classifier Predicted OpenStatus:", "Open" if predicted_mlp == 1 else "Closed")
+        #st.write(" Predicted OpenStatus:", predictedmlp)
         if predicted_mlp != 1:  # If not predicted to be an open question
             open_question_tags = ["python", "data-analysis", "machine-learning", "programming", "help"]
             st.write("Suggestions for closed questions:", open_question_tags)
