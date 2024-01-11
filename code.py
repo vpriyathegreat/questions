@@ -1,9 +1,9 @@
 import streamlit as st
 import re
-import nltk
+#import nltk
 import pandas as pd
-from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
+#from nltk.corpusimport stopwords
+#from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 from sklearn.naive_bayes import GaussianNB
