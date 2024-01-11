@@ -7,6 +7,7 @@ import pandas as pd
 #from nltk.stem.porter import PorterStemmer
 #from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
+import matplotlib.pyplot as plt
 #from sklearn.naive_bayes import GaussianNB
 #from sklearn.neural_network import MLPClassifier
 #from streamlit_option_menu
