@@ -3,7 +3,7 @@ from streamlit_option_menu import option_menu
 import re
 #import nltk
 import pandas as pd
-from nltk.corpusimport stopwords
+from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
