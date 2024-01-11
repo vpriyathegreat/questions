@@ -9,7 +9,7 @@ import pickle
 #from sklearn.naive_bayes import GaussianNB
 #from sklearn.neural_network import MLPClassifier
 #from streamlit_option_menu
-import option_menu
+#import option_menu
 #from training import y
 import matplotlib.pyplot as plt
 ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
