@@ -11,8 +11,8 @@ from sklearn.neural_network import MLPClassifier
 from streamlit_option_menu import option_menu
 #from training import y
 import matplotlib.pyplot as plt
-ds = pd.read_csv('dtsv.csv', quoting=3, on_bad_lines='skip')
-st.write(ds['Tag1'].count())
+ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
+
 with st.sidebar:
     selected = option_menu(
         menu_title=None,
@@ -85,7 +85,7 @@ if selected == "EDA":
 
     st.divider()
 
-    ds = pd.read_csv('dtsv.csv', quoting=3, on_bad_lines='skip')
+    ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
 
     # Convert 'PostCreationDate' to datetime
     ds['PostCreationDate'] = pd.to_datetime(ds['PostCreationDate'], format='%d-%m-%Y %H:%M', errors='coerce')
