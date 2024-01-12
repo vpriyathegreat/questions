@@ -185,7 +185,7 @@ if selected == "EDA":
 
 
 
-     st.divider()
+     
 
     st.subheader("YEAR VS POST CREATION DATE")
 
