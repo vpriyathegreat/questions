@@ -33,7 +33,7 @@ with st.sidebar:
         default_index=0
     )
 #predict similiar questions
-url = 'https://github.com/your_username/your_repository/raw/main/xtrain_tfidf.pkl'  # Adjust the filename as needed
+url = xtrain_tfidf.zip  # Adjust the filename as needed
 response = requests.get(url)
 xtrain_tfidf = pd.read_pickle(BytesIO(response.content))
 #predict the status
