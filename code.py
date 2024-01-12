@@ -17,7 +17,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 #from training import y
 
 ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
+ 
+dataset_file = "questiontrained.csv"
 
+df = pd.read_csv(dataset_file, encoding="latin-1") 
+questions_column = "Title"
+xtrain = df[questions_column].tolist()
 with st.sidebar:
     selected = option_menu(
         menu_title=None,
@@ -60,13 +65,34 @@ if selected == "Prediction":
         predictedmlp = mlp_cv.predict(input_tfidf)
 
         return predictedvaive, predictedmlp
-    def find_similar_questions(input_text, num_similar_questions=5):
+        
+    def find_similar_questions(input_text, num_similar_questions=5, batch_size=100):
+        vectorizer = TfidfVectorizer()
+        xtrain_tfidf = vectorizer.fit_transform(xtrain).toarray()
+
         input_tfidf = vectorizer.transform([input_text]).toarray()
-        similarities = cosine_similarity(input_tfidf, xtrain_tfidf).flatten()
-        similar_question_indices = similarities.argsort()[-num_similar_questions:][::-1]
+    
+    # Number of batches
+        num_batches = len(xtrain) // batch_size + 1
+
+    # Initialize an empty array to store similarities
+        all_similarities = np.array([])
+
+    # Process each batch
+        for i in range(num_batches):
+            start_idx = i * batch_size
+            end_idx = (i + 1) * batch_size
+
+        # Compute similarities for the current batch
+        batch_similarities = cosine_similarity(input_tfidf, xtrain_tfidf[start_idx:end_idx]).flatten()
+        all_similarities = np.concatenate((all_similarities, batch_similarities))
+
+    # Get indices of top similar questions
+        similar_question_indices = all_similarities.argsort()[-num_similar_questions:][::-1]
+
         print("Top Similar Questions:")
         for i, idx in enumerate(similar_question_indices, start=1):
-           print(f"{i}. {xtrain[idx]}")
+            print(f"{i}. {xtrain[idx]}")
 
 
     # User input
@@ -92,7 +118,7 @@ if selected == "Prediction":
         # else:
         #     st.write("No suggestions for open questions.")
     if st.button("Find Similar Questions"):
-            user_input = preprocess_input(title_input, bodymark_input, tags_input)
+            user_input = title_input
             find_similar_questions(user_input)
 
 
