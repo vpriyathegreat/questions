@@ -59,6 +59,14 @@ if selected == "Prediction":
         predictedmlp = mlp_cv.predict(input_tfidf)
 
         return predictedvaive, predictedmlp
+    def find_similar_questions(input_text, num_similar_questions=5):
+        input_tfidf = vectorizer.transform([input_text]).toarray()
+        similarities = cosine_similarity(input_tfidf, xtrain_tfidf).flatten()
+        similar_question_indices = similarities.argsort()[-num_similar_questions:][::-1]
+        print("Top Similar Questions:")
+        for i, idx in enumerate(similar_question_indices, start=1):
+           print(f"{i}. {xtrain[idx]}")
+
 
     # User input
     st.title("Open Status Prediction")
@@ -82,7 +90,9 @@ if selected == "Prediction":
             st.write("Suggestions for closed questions:", open_question_tags)
         # else:
         #     st.write("No suggestions for open questions.")
-
+        if st.button("Find Similar Questions"):
+            user_input = preprocess_input(title_input, bodymark_input, tags_input)
+            find_similar_questions(user_input)
 
 
 
