@@ -12,6 +12,9 @@ import matplotlib.pyplot as plt
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics.pairwise import cosine_similarity
+import requests
+from io import BytesIO
+import zipfile
 #from streamlit_option_menu
 #import option_menu
 #from training import y
@@ -30,6 +33,11 @@ with st.sidebar:
         default_index=0
     )
 
+url = 'https://github.com/your_username/your_repository/raw/main/path/to/your/xtrain_tfidf.zip'
+response = requests.get(url)
+with zipfile.ZipFile(BytesIO(response.content), 'r') as zip_ref:
+    zip_ref.extractall('./')
+ xtrain_tfidf = pd.read_pickle('./xtrain_tfidf.pkl')
 if selected == "Prediction":
     vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
     clf_nb = pickle.load(open("naive_bayes_model.pickle", "rb"))
@@ -66,33 +74,21 @@ if selected == "Prediction":
 
         return predictedvaive, predictedmlp
         
-    def find_similar_questions(input_text, num_similar_questions=5, batch_size=100):
-        vectorizer = TfidfVectorizer()
-        xtrain_tfidf = vectorizer.fit_transform(xtrain).toarray()
+     def find_similar_questions(input_text, num_similar_questions=5):
+      input_tfidf = vectorizer.transform([input_text]).toarray()
 
-        input_tfidf = vectorizer.transform([input_text]).toarray()
+    # Calculate cosine similarity between the input and all questions in the dataset
+      similarities = cosine_similarity(input_tfidf, xtrain_tfidf).flatten()
+
+    # Get the indices of the top N most similar questions
+      similar_question_indices = similarities.argsort()[-num_similar_questions:][::-1]
+
+    # Display the similar questions
+      st.write("Top Similar Questions:")
+      for i, idx in enumerate(similar_question_indices, start=1):
+       st.write(f"{i}. {xtrain[idx]}")
+
     
-    # Number of batches
-        num_batches = len(xtrain) // batch_size + 1
-
-    # Initialize an empty array to store similarities
-        all_similarities = np.array([])
-
-    # Process each batch
-        for i in range(num_batches):
-            start_idx = i * batch_size
-            end_idx = (i + 1) * batch_size
-
-        # Compute similarities for the current batch
-        batch_similarities = cosine_similarity(input_tfidf, xtrain_tfidf[start_idx:end_idx]).flatten()
-        all_similarities = np.concatenate((all_similarities, batch_similarities))
-
-    # Get indices of top similar questions
-        similar_question_indices = all_similarities.argsort()[-num_similar_questions:][::-1]
-
-        print("Top Similar Questions:")
-        for i, idx in enumerate(similar_question_indices, start=1):
-            print(f"{i}. {xtrain[idx]}")
 
 
     # User input
