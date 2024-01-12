@@ -32,12 +32,11 @@ with st.sidebar:
         options=["Prediction", "EDA"],
         default_index=0
     )
-
-url = 'https://github.com/your_username/your_repository/raw/main/path/to/your/xtrain_tfidf.zip'
+#predict similiar questions
+url = 'https://github.com/your_username/your_repository/raw/main/xtrain_tfidf.pkl'  # Adjust the filename as needed
 response = requests.get(url)
-with zipfile.ZipFile(BytesIO(response.content), 'r') as zip_ref:
-    zip_ref.extractall('./')
- xtrain_tfidf = pd.read_pickle('./xtrain_tfidf.pkl')
+xtrain_tfidf = pd.read_pickle(BytesIO(response.content))
+#predict the status
 if selected == "Prediction":
     vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
     clf_nb = pickle.load(open("naive_bayes_model.pickle", "rb"))
@@ -114,8 +113,10 @@ if selected == "Prediction":
         # else:
         #     st.write("No suggestions for open questions.")
     if st.button("Find Similar Questions"):
-            user_input = title_input
-            find_similar_questions(user_input)
+     similar_questions = find_similar_questions(user_input)
+     st.markdown("### Top Similar Questions:")
+     for i, question in enumerate(similar_questions, start=1):
+         st.write(f"{i}. {question}")
 
 
 
