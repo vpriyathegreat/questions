@@ -166,5 +166,28 @@ if selected == "EDA":
     with st.expander("See explanation"):
         st.write()
 
+    st.divider()
 
+    st.subheader("THE POPULAR TAGS")
+
+    
+
+    all_tags = ds.loc[:, 'Tag1':'Tag5'].stack().dropna()
+
+# Find the most popular tag
+    most_popular_tag = all_tags.value_counts().idxmax()
+    tag_counts = all_tags.value_counts().head(5)
+
+# Plot the bar chart using Streamlit
+    st.bar_chart(tag_counts)
+
+    st.divider()
+
+    with st.expander("See explanation"):
+        st.write()
+
+
+
+
+a
 
