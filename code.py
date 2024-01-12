@@ -114,7 +114,8 @@ if selected == "EDA":
     st.divider()
 
     with st.expander("See explanation"):
-        st.write()
+        st.write("Back to the grind: Mondays are often for catching up after the weekend, while Wednesdays involve meetings and planning. Tuesdays leave room for deeper work and technical problem-solving, leading to more questions and answers on Stack Overflow.")
+        st.write("Weekly cycle: Tuesdays represent the middle of the work week, when developers might encounter issues they've been struggling with for a couple of days. They have less immediate pressure compared to the beginning or end of the week, allowing them to dedicate time to seeking help or sharing knowledge.")
 
     st.divider()
 
