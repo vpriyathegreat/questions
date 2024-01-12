@@ -73,19 +73,19 @@ if selected == "Prediction":
 
         return predictedvaive, predictedmlp
         
-     def find_similar_questions(input_text, num_similar_questions=5):
-      input_tfidf = vectorizer.transform([input_text]).toarray()
+    def find_similar_questions(input_text, num_similar_questions=5):
+     input_tfidf = vectorizer.transform([input_text]).toarray()
 
     # Calculate cosine similarity between the input and all questions in the dataset
-      similarities = cosine_similarity(input_tfidf, xtrain_tfidf).flatten()
+     similarities = cosine_similarity(input_tfidf, xtrain_tfidf).flatten()
 
     # Get the indices of the top N most similar questions
-      similar_question_indices = similarities.argsort()[-num_similar_questions:][::-1]
+     similar_question_indices = similarities.argsort()[-num_similar_questions:][::-1]
 
     # Display the similar questions
-      st.write("Top Similar Questions:")
-      for i, idx in enumerate(similar_question_indices, start=1):
-       st.write(f"{i}. {xtrain[idx]}")
+     st.write("Top Similar Questions:")
+     for i, idx in enumerate(similar_question_indices, start=1):
+      st.write(f"{i}. {xtrain[idx]}")
 
     
 
