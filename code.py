@@ -35,7 +35,7 @@ with st.sidebar:
 #predict similiar questions
 url = "https://github.com/vpriyathegreat/questions/blob/main/xtrain_tfidf.zip" # Adjust the filename as needed
 response = requests.get(url)
-xtrain_tfidf = pd.read_pickle(BytesIO(response.content))
+xtrain_tfidf = pickle.loads(response.content)
 #predict the status
 if selected == "Prediction":
     vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
