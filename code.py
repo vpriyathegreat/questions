@@ -116,7 +116,7 @@ if selected == "Prediction":
         # else:
         #     st.write("No suggestions for open questions.")
     if st.button("Find Similar Questions"):
-     find_similar_questions(user_input)
+     find_similar_questions(title_input)
 
 
 
