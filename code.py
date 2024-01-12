@@ -90,7 +90,7 @@ if selected == "Prediction":
             st.write("Suggestions for closed questions:", open_question_tags)
         # else:
         #     st.write("No suggestions for open questions.")
-        if st.button("Find Similar Questions"):
+    if st.button("Find Similar Questions"):
             user_input = preprocess_input(title_input, bodymark_input, tags_input)
             find_similar_questions(user_input)
 
