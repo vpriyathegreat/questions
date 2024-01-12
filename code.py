@@ -21,9 +21,12 @@ import zipfile
 
 ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
  
+# Load the dataset CSV file (replace "your_dataset.csv" with the actual file name)
 dataset_file = "questiontrained.csv"
 
-df = pd.read_csv(dataset_file, encoding="latin-1") 
+df = pd.read_csv(dataset_file, encoding="latin-1")  # or encoding="ISO-8859-1"
+
+# Assuming your CSV file has a column named "question" that contains the questions
 questions_column = "Title"
 xtrain = df[questions_column].tolist()
 with st.sidebar:
@@ -32,17 +35,7 @@ with st.sidebar:
         options=["Prediction", "EDA"],
         default_index=0
     )
-#predict similiar questions
-file_id = "1k3MH20Mi1McNs1WW60w9CKXpsJsIEicu"  # Replace with your actual Google Drive file ID
-url = "https://drive.google.com/file/d/1k3MH20Mi1McNs1WW60w9CKXpsJsIEicu/view?usp=sharing"
-response = requests.get(url)
 
-try:
-    # Load xtrain_tfidf directly from the downloaded file
-    with open('xtrain_tfidf.pickle', 'rb') as file:
-        xtrain_tfidf = pickle.load(file)
-except Exception as e:
-    st.error(f"Error loading xtrain_tfidf: {e}")
 #predict the status
 if selected == "Prediction":
     vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
@@ -81,15 +74,18 @@ if selected == "Prediction":
         return predictedvaive, predictedmlp
         
     def find_similar_questions(input_text, num_similar_questions=5):
-     input_tfidf = vectorizer.transform([input_text]).toarray()
+     vectorizer = TfidfVectorizer()
+     xtrain_tfidf = vectorizer.fit_transform(xtrain)
 
-    # Calculate cosine similarity between the input and all questions in the dataset
-     similarities = cosine_similarity(input_tfidf, xtrain_tfidf).flatten()
+     input_tfidf = vectorizer.transform([input_text])
 
-    # Get the indices of the top N most similar questions
+    # Convert sparse matrices to dense for cosine_similarity
+     input_tfidf_dense = input_tfidf.toarray()
+     xtrain_tfidf_dense = xtrain_tfidf.toarray()
+
+     similarities = cosine_similarity(input_tfidf_dense, xtrain_tfidf_dense).flatten()
      similar_question_indices = similarities.argsort()[-num_similar_questions:][::-1]
 
-    # Display the similar questions
      st.write("Top Similar Questions:")
      for i, idx in enumerate(similar_question_indices, start=1):
       st.write(f"{i}. {xtrain[idx]}")
@@ -120,10 +116,7 @@ if selected == "Prediction":
         # else:
         #     st.write("No suggestions for open questions.")
     if st.button("Find Similar Questions"):
-     similar_questions = find_similar_questions(user_input)
-     st.markdown("### Top Similar Questions:")
-     for i, question in enumerate(similar_questions, start=1):
-         st.write(f"{i}. {question}")
+     find_similar_questions(user_input)
 
 
 
