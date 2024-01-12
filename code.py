@@ -231,6 +231,11 @@ if selected == "EDA":
         st.write("Legacy Codebases and Maintenance:Many websites and applications built on older PHP versions required maintenance and updates. Stack Overflow became a valuable resource for resolving issues and finding solutions for legacy code.")
         st.write(" Learning and Resource Hub: New developers often chose PHP as an entry point due to its accessibility.Stack Overflow served as a learning platform and knowledge base for beginners seeking guidance.")
 
+    
+ 
+ 
+
+
 
 
 
