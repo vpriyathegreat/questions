@@ -165,6 +165,8 @@ if selected == "EDA":
 
     fig,ax=plt.subplots(figsize=(8, 3))
     ax.bar(month_counts.index, month_counts)
+    plt.xticks(rotation=45, ha='right')
+
 
 # Set plot labels and title
     ax.set_xlabel('Month')
@@ -176,11 +178,14 @@ if selected == "EDA":
     st.divider()
 
     with st.expander("See explanation"):
-        st.write()
-    
+        st.write("the plot shows  that more questions are asked on Stack Overflow during the months of August, September, and October compared to other times of the year.")
+        st.write("Begining of fall semester:")
+        st.write("August and September mark the beginning of the academic year for many students, particularly those enrolled in computer science or related fields. They may encounter new challenges and concepts, leading them to seek help on Stack Overflow.")
+     
 
 
-    st.divider()
+
+     st.divider()
 
     st.subheader("YEAR VS POST CREATION DATE")
 
@@ -202,7 +207,7 @@ if selected == "EDA":
     st.divider()
 
     with st.expander("See explanation"):
-        st.write()
+        st.write(" It can be seen that there was a spike in posting question ,As the popularity of Stack Overflow gradually increased")
 
     st.divider()
 
@@ -222,7 +227,9 @@ if selected == "EDA":
     st.divider()
 
     with st.expander("See explanation"):
-        st.write()
+        st.write("It can be seen that PHP tags are the most widely used this is due to the fact that:")
+        st.write("Legacy Codebases and Maintenance:Many websites and applications built on older PHP versions required maintenance and updates. Stack Overflow became a valuable resource for resolving issues and finding solutions for legacy code.")
+        st.write(" Learning and Resource Hub: New developers often chose PHP as an entry point due to its accessibility.Stack Overflow served as a learning platform and knowledge base for beginners seeking guidance.")
 
 
 
