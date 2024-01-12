@@ -11,6 +11,7 @@ import pickle
 import matplotlib.pyplot as plt
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics.pairwise import cosine_similarity
 #from streamlit_option_menu
 #import option_menu
 #from training import y
