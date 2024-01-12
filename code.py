@@ -35,11 +35,13 @@ with st.sidebar:
 #predict similiar questions
 url = "https://github.com/vpriyathegreat/questions/blob/main/xtrain_tfidf.zip" # Adjust the filename as needed
 response = requests.get(url)
-with zipfile.ZipFile(BytesIO(response.content), 'r') as zip_ref:
-    zip_ref.extractall('./')
-
-# Load xtrain_tfidf from the extracted file
-xtrain_tfidf = pickle.load(open('./xtrain_tfidf.pkl', 'rb'))
+try:
+    # Load xtrain_tfidf directly from the ZIP file
+    with zipfile.ZipFile(BytesIO(response.content), 'r') as zip_ref:
+        with zip_ref.open('xtrain_tfidf.pkl', 'r') as file:
+            xtrain_tfidf = pickle.load(file)
+except Exception as e:
+    st.error(f"Error loading xtrain_tfidf: {e}")
 #predict the status
 if selected == "Prediction":
     vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
