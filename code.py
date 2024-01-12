@@ -38,8 +38,9 @@ url = "https://drive.google.com/file/d/1k3MH20Mi1McNs1WW60w9CKXpsJsIEicu/view?us
 response = requests.get(url)
 
 try:
-    # Load xtrain_tfidf directly from the downloaded content
-    xtrain_tfidf = pickle.loads(response.content)
+    # Load xtrain_tfidf directly from the downloaded file
+    with open('xtrain_tfidf.pickle', 'rb') as file:
+        xtrain_tfidf = pickle.load(file)
 except Exception as e:
     st.error(f"Error loading xtrain_tfidf: {e}")
 #predict the status
