@@ -33,13 +33,13 @@ with st.sidebar:
         default_index=0
     )
 #predict similiar questions
-url = "https://github.com/vpriyathegreat/questions/blob/main/xtrain_tfidf.zip" # Adjust the filename as needed
+file_id = "1k3MH20Mi1McNs1WW60w9CKXpsJsIEicu"  # Replace with your actual Google Drive file ID
+url = "https://drive.google.com/file/d/1k3MH20Mi1McNs1WW60w9CKXpsJsIEicu/view?usp=sharing"
 response = requests.get(url)
+
 try:
-    # Load xtrain_tfidf directly from the ZIP file
-    with zipfile.ZipFile(BytesIO(response.content), 'r') as zip_ref:
-        with zip_ref.open('xtrain_tfidf.pkl', 'r') as file:
-            xtrain_tfidf = pickle.load(file)
+    # Load xtrain_tfidf directly from the downloaded content
+    xtrain_tfidf = pickle.loads(response.content)
 except Exception as e:
     st.error(f"Error loading xtrain_tfidf: {e}")
 #predict the status
