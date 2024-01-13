@@ -86,7 +86,7 @@ if selected == "Prediction":
 
 
     # User input
-    st.title("Open Status Prediction")
+    st.title("Question Status Prediction")
 
     title_input = st.text_input("Enter the title:", "")
     bodymark_input = st.text_input("Enter the bodymark:", "")
