@@ -108,58 +108,44 @@ if selected == "Prediction":
 
 
 #option2:
+st.Title("EDA")
+st.write("A general eda based on the presence of other features in the dataset")
 if selected == "EDA":
-    st.subheader("DAY VS POST CREATION DATE")
+    st.subheader("DAY VS POST CREATION DATE")#first analysis
 
     st.divider()
-
     ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
-
-    # Convert 'PostCreationDate' to datetime
     ds['PostCreationDate'] = pd.to_datetime(ds['PostCreationDate'], format='%d-%m-%Y %H:%M', errors='coerce')
-
-    # Extract day of the week and count occurrences
     day_counts = ds['PostCreationDate'].dt.day_name().value_counts()
-
-    
     fig,ax=plt.subplots(figsize=(8, 3))
     ax.bar(  day_counts.index, day_counts)
-
-# Set plot labels and title
     ax.set_xlabel('Day of the Week')
     ax.set_ylabel('Number of Posts')
     ax.set_title('Number of Posts for Each Day of the Week')
-
-# Display the plot using Streamlit
     st.pyplot(fig)
 
     st.divider()
 
     with st.expander("See explanation"):
+        st.write("It can be seen that tuesdays have the most number questions being posted per day this may be due to:")
         st.write("Back to the grind: Mondays are often for catching up after the weekend, while Wednesdays involve meetings and planning. Tuesdays leave room for deeper work and technical problem-solving, leading to more questions and answers on Stack Overflow.")
         st.write("Weekly cycle: Tuesdays represent the middle of the work week, when developers might encounter issues they've been struggling with for a couple of days. They have less immediate pressure compared to the beginning or end of the week, allowing them to dedicate time to seeking help or sharing knowledge.")
 
     st.divider()
 
+#seoncd analysis
+    
     st.subheader("MONTH VS POST CREATION DATE")
 
     ds['PostCreationDate'] = pd.to_datetime(ds['PostCreationDate'], format='%d-%m-%Y %H:%M', errors='coerce')
-
-# Extract month and count occurrences
     month_counts = ds['PostCreationDate'].dt.month_name().value_counts()
-
     fig,ax=plt.subplots(figsize=(8, 3))
     ax.bar(month_counts.index, month_counts)
     plt.xticks(rotation=45, ha='right')
-
-
-# Set plot labels and title
     ax.set_xlabel('Month')
     ax.set_ylabel('Number of Posts')
     ax.set_title('Number of Posts for Each Month')
-# Display the plot using Streamlit
     st.pyplot(fig)
-
     st.divider()
 
     with st.expander("See explanation"):
@@ -171,24 +157,17 @@ if selected == "EDA":
 
 
      
-
+#third analysis
     st.subheader("YEAR VS POST CREATION DATE")
 
     ds['PostCreationDate'] = pd.to_datetime(ds['PostCreationDate'], format='%d-%m-%Y %H:%M', errors='coerce')
-
-# Extract month and count occurrences
     year_counts = ds['PostCreationDate'].dt.year.value_counts()
-
     fig,ax=plt.subplots(figsize=(8, 3))
     ax.bar(year_counts.index, year_counts)
-
-# Set plot labels and title
     ax.set_xlabel('Year')
     ax.set_ylabel('Number of Posts')
     ax.set_title('Number of Posts for Each Year')
-# Display the plot using Streamlit
     st.pyplot(fig)
-
     st.divider()
 
     with st.expander("See explanation"):
@@ -196,17 +175,14 @@ if selected == "EDA":
 
     st.divider()
 
+    #fourth analysis
     st.subheader("THE POPULAR TAGS")
 
     
 
     all_tags = ds.loc[:, 'Tag1':'Tag5'].stack().dropna()
-
-# Find the most popular tag
     most_popular_tag = all_tags.value_counts().idxmax()
     tag_counts = all_tags.value_counts().head(5)
-
-# Plot the bar chart using Streamlit
     st.bar_chart(tag_counts)
 
     st.divider()
