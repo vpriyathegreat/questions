@@ -101,7 +101,7 @@ if selected == "Prediction":
         st.write(" Predicted OpenStatus:", "Open" if  predictedvaive == 1 else "Closed")
         if  predictedvaive != 1:  
             open_question_tags = ["python", "data-analysis", "machine-learning", "programming", "help"]
-            st.write("Suggestions for closed questions:", open_question_tags)
+            st.write("Tag Suggestions for closed questions:", open_question_tags)
         
     if st.button("Find Similar Questions that can be found on StackOverflow:"):
      find_similar_questions(title_input)
