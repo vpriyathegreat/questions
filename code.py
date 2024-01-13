@@ -108,9 +108,10 @@ if selected == "Prediction":
 
 
 #option2:
-st.Title("EDA")
-st.write("A general eda based on the presence of other features in the dataset")
 if selected == "EDA":
+    st.title("EDA")
+    st.write("A general eda based on the presence of other features in the dataset")
+    
     st.subheader("DAY VS POST CREATION DATE")#first analysis
 
     st.divider()
