@@ -103,7 +103,7 @@ if selected == "Prediction":
             open_question_tags = ["python", "data-analysis", "machine-learning", "programming", "help"]
             st.write("Tag Suggestions for closed questions:", open_question_tags)
         
-    if st.button("Find Similar Questions that can be found on StackOverflow:"):
+    if st.button("Similar Questions that can be found on StackOverflow:"):
      find_similar_questions(title_input)
 
 
