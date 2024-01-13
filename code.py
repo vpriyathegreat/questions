@@ -15,20 +15,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 import requests
 from io import BytesIO
 import zipfile
-#from streamlit_option_menu
-#import option_menu
-#from training import y
 
+# Load the dataset CSV file 
 ds = pd.read_csv('eda.csv', quoting=3, on_bad_lines='skip')
- 
-# Load the dataset CSV file (replace "your_dataset.csv" with the actual file name)
 dataset_file = "questiontrained.csv"
-
 df = pd.read_csv(dataset_file, encoding="latin-1")  # or encoding="ISO-8859-1"
-
-# Assuming your CSV file has a column named "question" that contains the questions
 questions_column = "Title"
 xtrain = df[questions_column].tolist()
+
 with st.sidebar:
     selected = option_menu(
         menu_title=None,
@@ -36,7 +30,7 @@ with st.sidebar:
         default_index=0
     )
 
-#predict the status
+#option 1
 if selected == "Prediction":
     vectorizer = pickle.load(open("vectorizer.pickle", "rb"))
     clf_nb = pickle.load(open("naive_bayes_model.pickle", "rb"))
@@ -72,14 +66,12 @@ if selected == "Prediction":
         predictedmlp = mlp_cv.predict(input_tfidf)
 
         return predictedvaive, predictedmlp
-        
+        #function to rpedict similiar question
     def find_similar_questions(input_text, num_similar_questions=5):
      vectorizer = TfidfVectorizer()
      xtrain_tfidf = vectorizer.fit_transform(xtrain)
 
      input_tfidf = vectorizer.transform([input_text])
-
-    # Convert sparse matrices to dense for cosine_similarity
      input_tfidf_dense = input_tfidf.toarray()
      xtrain_tfidf_dense = xtrain_tfidf.toarray()
 
@@ -99,27 +91,23 @@ if selected == "Prediction":
     title_input = st.text_input("Enter the title:", "")
     bodymark_input = st.text_input("Enter the bodymark:", "")
     tags_input = st.text_input("Enter the tags (space-separated):", "")
-
+#second button
     if st.button("Predict OpenStatus"):
         predictedvaive, predictedmlp = predict_open_status(title_input, bodymark_input, tags_input)
         st.write("User Input:")
         st.write("Title:", title_input)
         st.write("Bodymark:", bodymark_input)
         st.write("Tags:", tags_input)
-       # st.write("Naive Bayes Predicted OpenStatus:", predictedvaive)
-        #print("Naive Bayes Predicted OpenStatus:", "Open" if predicted_nb == 1 else "Closed")
         st.write(" Predicted OpenStatus:", "Open" if  predictedvaive == 1 else "Closed")
-        #st.write(" Predicted OpenStatus:", predictedmlp)
-        if  predictedvaive != 1:  # If not predicted to be an open question
+        if  predictedvaive != 1:  
             open_question_tags = ["python", "data-analysis", "machine-learning", "programming", "help"]
             st.write("Suggestions for closed questions:", open_question_tags)
-        # else:
-        #     st.write("No suggestions for open questions.")
-    if st.button("Find Similar Questions"):
+        
+    if st.button("Find Similar Questions that can be found on StackOverflow:"):
      find_similar_questions(title_input)
 
 
-
+#option2:
 if selected == "EDA":
     st.subheader("DAY VS POST CREATION DATE")
 
