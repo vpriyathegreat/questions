@@ -94,10 +94,10 @@ if selected == "Prediction":
 #second button
     if st.button("Predict OpenStatus"):
         predictedvaive, predictedmlp = predict_open_status(title_input, bodymark_input, tags_input)
-        st.write("User Input:")
-        st.write("Title:", title_input)
-        st.write("Bodymark:", bodymark_input)
-        st.write("Tags:", tags_input)
+        #st.write("User Input:")
+        #st.write("Title:", title_input)
+        #st.write("Bodymark:", bodymark_input)
+        #st.write("Tags:", tags_input)
         st.write(" Predicted OpenStatus:", "Open" if  predictedvaive == 1 else "Closed")
         if  predictedvaive != 1:  
             open_question_tags = ["python", "data-analysis", "machine-learning", "programming", "help"]
